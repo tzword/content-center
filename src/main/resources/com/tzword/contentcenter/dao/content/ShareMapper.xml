@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tzword.contentcenter.dao.content.ShareMapper">
+  <resultMap id="BaseResultMap" type="com.tzword.contentcenter.domain.entity.content.Share">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="phone" jdbcType="CHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="aboutme" jdbcType="VARCHAR" property="aboutme" />
+    <result column="passwd" jdbcType="VARCHAR" property="passwd" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="type" jdbcType="BIT" property="type" />
+    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="enable" jdbcType="BIT" property="enable" />
+    <result column="agency_id" jdbcType="INTEGER" property="agencyId" />
+  </resultMap>
+</mapper>

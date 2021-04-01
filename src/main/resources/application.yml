@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/content_center?useSSL=false&serverTimezone=UTC
+    hikari:
+      username: root
+      password: 1323!Q@#EMSD%$^
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        # 指定namespace
+#        namespace: 68dc03c0-048d-48c4-81e3-b7d1b34556e5
+        # 指定集群名称
+#        cluster-name: NJ
+        # 元数据
+
+        metadata:
+          aaa: bbb
+          ccc: ddd
+
+
+  application:
+    name: content-center
+
+server:
+  port: 8010
+
