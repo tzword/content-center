@@ -58,7 +58,7 @@ public class TestController {
     @GetMapping("getUserByRibbon")
     public void getUserByRibbon(){
         String forObject = restTemplate.getForObject("http://user-center/hi/helloword", String.class);
-        log.info("ribbon调用结果" + forObject);
+//        log.info("ribbon调用结果" + forObject);
     }
 
 
