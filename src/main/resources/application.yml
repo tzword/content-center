@@ -13,9 +13,8 @@ spring:
         # 指定namespace
 #        namespace: 68dc03c0-048d-48c4-81e3-b7d1b34556e5
         # 指定集群名称
-#        cluster-name: NJ
+        cluster-name: BJ
         # 元数据
-
         metadata:
           aaa: bbb
           ccc: ddd
