@@ -33,3 +33,11 @@ ribbon:
   eager-load:
     enabled: true
     clients: user-center
+logging:
+  level:
+    com.tzword.contentcenter.feignclient.UserCenterFeignClient: debug
+feign:
+  client:
+    config:
+      default: #default为全局配置，如果写服务名为单个服务名的配置
+        loggerLevel: full
