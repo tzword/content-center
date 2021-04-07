@@ -1,14 +1,23 @@
 package com.tzword.contentcenter.controller;
 
+import com.alibaba.csp.sentinel.Entry;
+import com.alibaba.csp.sentinel.SphU;
+import com.alibaba.csp.sentinel.Tracer;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.context.ContextUtil;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.tzword.contentcenter.dao.content.ShareMapper;
 import com.tzword.contentcenter.domain.entity.content.Share;
 import lombok.extern.slf4j.Slf4j;
+import net.bytebuddy.implementation.bytecode.assign.TypeCasting;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -88,6 +97,57 @@ public class TestController {
     public List<String> getServices(){
         List<String> services = discoveryClient.getServices();
         return services;
+    }
+
+
+    @GetMapping("/getHotData")
+    @SentinelResource("hot")
+    public String getHotData(@RequestParam(required = false) String a, @RequestParam(required = false) String b){
+        return a+""+b;
+    }
+
+    /**
+     * @Description: sentinel的API，①Sphu，②Tracer,③ContextUtil
+     *
+     * ①Sphu让资源受到保护，受到监控
+     * ②Tracer可以让我们想要的异常可以被统计
+     * ③ContextUtil 可以标记调用的来源
+     *
+     * @param a 1 
+     * @return java.lang.String 
+     * @throws
+     * @author jianghy
+     * @date 2021/4/7 17:08 
+     */
+    @GetMapping("testSentinelApi")
+    public String testSentinelApi(@RequestParam(required = false) String a){
+        String resourceName = "test-sentinel-api";
+        ContextUtil.enter(resourceName,"test-wfw");
+        // 定义一个sentinel保护的资源，名字是：test-sentinel-api
+        Entry entry = null;
+        try {
+            entry = SphU.entry(resourceName);
+            if (StringUtils.isBlank(a)) {
+                throw new IllegalArgumentException("参数a不能为空");
+            }
+            // 被保护的业务逻辑
+            return a;
+        }
+        //如果被保护的资源限流或者降级了，就会抛出BlockException异常
+        catch (BlockException e) {
+            log.info("限流或者降级",e);
+            return "限流或者降级";
+        }catch (IllegalArgumentException e2){
+            //统计IllegalArgumentException发生的占比，次数
+            Tracer.trace(e2);
+            return "参数非法";
+        }
+        finally {
+            if (entry != null){
+                entry.exit();
+            }
+            ContextUtil.exit();
+        }
     }
     
     

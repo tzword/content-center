@@ -19,6 +19,14 @@ spring:
           version: v1
           target-version: v1
 
+    sentinel:
+      transport:
+        # 指定sentinel控制台
+        dashboard: http://localhost:8888
+      filter:
+        # 关闭对springmvc端点的保护
+        enabled: false
+
   application:
     name: content-center
   main:
