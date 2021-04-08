@@ -8,6 +8,8 @@ import com.alibaba.csp.sentinel.context.ContextUtil;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.tzword.contentcenter.dao.content.ShareMapper;
 import com.tzword.contentcenter.domain.entity.content.Share;
+import com.tzword.contentcenter.sentinel.SentinelBlockHandlerClass;
+import com.tzword.contentcenter.sentinel.SentinelFallbackClass;
 import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.implementation.bytecode.assign.TypeCasting;
 import org.apache.commons.lang.StringUtils;
@@ -149,9 +151,30 @@ public class TestController {
             ContextUtil.exit();
         }
     }
-    
-    
-    
+
+
+    /**
+     * @Description: SentinelResource来替换上面的api
+     * @param a 1
+     * @return java.lang.String
+     * @throws
+     * @author jianghy
+     * @date 2021/4/8 13:54
+     */
+    @GetMapping("testSentinelResource")
+    @SentinelResource(value = "test-sentinel-api",
+            blockHandler = "block",
+            blockHandlerClass = SentinelBlockHandlerClass.class,//限流
+            fallback = "fallback",
+            fallbackClass = SentinelFallbackClass.class//降级
+    )
+    public String testSentinelResource(@RequestParam(required = false) String a){
+        if (StringUtils.isBlank(a)) {
+            throw new IllegalArgumentException("a can not blank");
+        }
+        // 被保护的业务逻辑
+        return a;
+    }
 
 
 }
