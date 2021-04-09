@@ -6,6 +6,7 @@ import com.tzword.contentcenter.feignclient.UserCenterFeignClient;
 import com.tzword.contentcenter.feignclient.UserCenterFeignParamClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.SpringQueryMap;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,9 +29,9 @@ public class FeignTestController {
     @Autowired
     private BaiduFeignClient baiduFeignClient;
 
-    @GetMapping("getUserByFeign")
-    public void getUserByFeign(){
-        userCenterFeignClient.getUserByFeign();
+    @GetMapping(value = "getUserByFeign",produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<User> getUserByFeign(){
+        return userCenterFeignClient.getUserByFeign();
     }
 
     

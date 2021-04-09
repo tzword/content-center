@@ -58,6 +58,8 @@ feign:
     max-connections: 200
     #单个路由的最大连接数
     max-connections-per-route: 20
+  sentinel:
+    enabled: true
 
 #添加sentinel依赖后 暴露/actuator/sentinel端点
 management:
