@@ -25,7 +25,8 @@ spring:
         dashboard: http://localhost:8888
       filter:
         # 关闭对springmvc端点的保护
-        enabled: false
+#        enabled: false
+        enabled: true
 
   application:
     name: content-center
