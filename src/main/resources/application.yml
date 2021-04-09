@@ -65,3 +65,8 @@ management:
     web:
       exposure:
         include: '*'
+
+resttemplate:
+  # SentinelRestTemplate开关
+  sentinel:
+    enabled: false

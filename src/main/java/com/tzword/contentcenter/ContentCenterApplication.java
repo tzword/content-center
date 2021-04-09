@@ -1,5 +1,6 @@
 package com.tzword.contentcenter;
 
+import com.alibaba.cloud.sentinel.annotation.SentinelRestTemplate;
 import com.tzword.contentcenter.configuration.GlobleFeignConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,6 +22,7 @@ public class ContentCenterApplication {
 
     @Bean
     @LoadBalanced
+    @SentinelRestTemplate
     public RestTemplate getRestTemplate(){
         return new RestTemplate();
     }

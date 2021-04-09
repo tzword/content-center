@@ -1,10 +1,16 @@
 package com.tzword.contentcenter.domain.entity.content;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+import lombok.experimental.FieldNameConstants;
 
 import java.util.Date;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+@FieldNameConstants
 public class User {
     /**
      * 主键

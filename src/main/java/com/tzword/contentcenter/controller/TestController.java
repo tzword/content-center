@@ -8,6 +8,7 @@ import com.alibaba.csp.sentinel.context.ContextUtil;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.tzword.contentcenter.dao.content.ShareMapper;
 import com.tzword.contentcenter.domain.entity.content.Share;
+import com.tzword.contentcenter.domain.entity.content.User;
 import com.tzword.contentcenter.sentinel.SentinelBlockHandlerClass;
 import com.tzword.contentcenter.sentinel.SentinelFallbackClass;
 import lombok.extern.slf4j.Slf4j;
@@ -16,11 +17,9 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -176,5 +175,19 @@ public class TestController {
         return a;
     }
 
+
+
+    /**
+     * @Description: sentinel rest templete
+     * @param id 1 
+     * @return java.util.List<com.tzword.contentcenter.domain.entity.content.User> 
+     * @throws
+     * @author jianghy
+     * @date 2021/4/8 14:54 
+     */
+    @GetMapping(value = "sentinel-restTemplete/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public User getUserBySentinelRestTemplete(@PathVariable Integer id){
+        return this.restTemplate.getForObject("http://user-center/hi/getUser/{id}",User.class,id);
+    }
 
 }
