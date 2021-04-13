@@ -1,9 +1,17 @@
 package com.tzword.contentcenter.domain.entity.content;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 import javax.persistence.*;
 
-@Table(name = "share")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Share {
     /**
      * 主键

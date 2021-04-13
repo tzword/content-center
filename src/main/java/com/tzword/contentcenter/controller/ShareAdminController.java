@@ -21,16 +21,10 @@ public class ShareAdminController {
     @Autowired
     private ShareService shareService;
 
-    @Autowired
-    private RocketMQTemplate rocketMQTemplate;
-
     @PutMapping("/audit/{id}")
     public Share auditById(@PathVariable Integer id){
         //TODO 认证、授权
         Share share = this.shareService.auditById(id);
-        //发送消息到mq
-        rocketMQTemplate.convertAndSend("add-bonus",
-                UserAddBonusMsgDTO.builder().userId(share.getId()).bonus(50).build());
         return share;
     }
 }
