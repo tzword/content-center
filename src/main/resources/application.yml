@@ -27,6 +27,14 @@ spring:
         # 关闭对springmvc端点的保护
 #        enabled: false
         enabled: true
+    stream:
+      rocketmq:
+        binder:
+          name-server: 127.0.0.1:9876
+      bindings:
+        output:
+          # 用来指定topic
+          destination: stream-test-topic
 
   application:
     name: content-center

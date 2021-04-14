@@ -12,13 +12,14 @@ import com.tzword.contentcenter.domain.entity.content.User;
 import com.tzword.contentcenter.sentinel.SentinelBlockHandlerClass;
 import com.tzword.contentcenter.sentinel.SentinelFallbackClass;
 import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.implementation.bytecode.assign.TypeCasting;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.stream.messaging.Source;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -188,6 +189,18 @@ public class TestController {
     @GetMapping(value = "sentinel-restTemplete/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public User getUserBySentinelRestTemplete(@PathVariable Integer id){
         return this.restTemplate.getForObject("http://user-center/hi/getUser/{id}",User.class,id);
+    }
+
+
+    @Autowired
+    private Source source;
+
+    @GetMapping("/test-stream")
+    public String testStream(){
+        this.source.output().send(
+                MessageBuilder.withPayload("消息体").build()
+        );
+        return "success";
     }
 
 }
