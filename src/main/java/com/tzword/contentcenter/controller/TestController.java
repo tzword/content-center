@@ -9,6 +9,7 @@ import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.tzword.contentcenter.dao.content.ShareMapper;
 import com.tzword.contentcenter.domain.entity.content.Share;
 import com.tzword.contentcenter.domain.entity.content.User;
+import com.tzword.contentcenter.rocketmq.MySource;
 import com.tzword.contentcenter.sentinel.SentinelBlockHandlerClass;
 import com.tzword.contentcenter.sentinel.SentinelFallbackClass;
 import lombok.extern.slf4j.Slf4j;
@@ -198,6 +199,26 @@ public class TestController {
     @GetMapping("/test-stream")
     public String testStream(){
         this.source.output().send(
+                MessageBuilder.withPayload("消息体").build()
+        );
+        return "success";
+    }
+
+
+    @Autowired
+    private MySource mySource;
+
+    /**
+     * @Description: 自定义的Source
+     * @param  1
+     * @return java.lang.String
+     * @throws
+     * @author jianghy
+     * @date 2021/4/15 21:31
+     */
+    @GetMapping("/test-my-stream")
+    public String testMyStream(){
+        this.mySource.output().send(
                 MessageBuilder.withPayload("消息体").build()
         );
         return "success";
