@@ -39,8 +39,14 @@ public class AddBonusTransactionListener implements RocketMQLocalTransactionList
         MessageHeaders headers = msg.getHeaders();
         String transactionId = (String)headers.get(RocketMQHeaders.TRANSACTION_ID);
         Integer shareId = Integer.valueOf((String) headers.get("share_id"));
+
+        //这里是通过stream方式获取head里的参数对象
+        String msg1 = (String) headers.get("msg");
+        //如果那边是header存的dto需要吧json转成DTO
+        //JSON.parseObject(dto,XXX.class)
         try {
-            this.shareService.auditByIdWithRocketMqLog(shareId,(String) arg,transactionId);
+//            this.shareService.auditByIdWithRocketMqLog(shareId,(String) arg,transactionId);
+            this.shareService.auditByIdWithRocketMqLog(shareId,msg1,transactionId);
             //本地事务成功就提交
             return RocketMQLocalTransactionState.COMMIT;
         } catch (Exception e) {

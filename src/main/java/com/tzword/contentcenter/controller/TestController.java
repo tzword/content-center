@@ -193,35 +193,35 @@ public class TestController {
     }
 
 
-    @Autowired
-    private Source source;
-
-    @GetMapping("/test-stream")
-    public String testStream(){
-        this.source.output().send(
-                MessageBuilder.withPayload("消息体").build()
-        );
-        return "success";
-    }
-
-
-    @Autowired
-    private MySource mySource;
-
-    /**
-     * @Description: 自定义的Source
-     * @param  1
-     * @return java.lang.String
-     * @throws
-     * @author jianghy
-     * @date 2021/4/15 21:31
-     */
-    @GetMapping("/test-my-stream")
-    public String testMyStream(){
-        this.mySource.output().send(
-                MessageBuilder.withPayload("消息体").build()
-        );
-        return "success";
-    }
+//    @Autowired
+//    private Source source;
+//
+//    @GetMapping("/test-stream")
+//    public String testStream(){
+//        this.source.output().send(
+//                MessageBuilder.withPayload("消息体").build()
+//        );
+//        return "success";
+//    }
+//
+//
+//    @Autowired
+//    private MySource mySource;
+//
+//    /**
+//     * @Description: 自定义的Source
+//     * @param  1
+//     * @return java.lang.String
+//     * @throws
+//     * @author jianghy
+//     * @date 2021/4/15 21:31
+//     */
+//    @GetMapping("/test-my-stream")
+//    public String testMyStream(){
+//        this.mySource.output().send(
+//                MessageBuilder.withPayload("消息体").build()
+//        );
+//        return "success";
+//    }
 
 }

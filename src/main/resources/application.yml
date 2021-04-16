@@ -27,16 +27,30 @@ spring:
         # 关闭对springmvc端点的保护
 #        enabled: false
         enabled: true
+#    stream:
+#      rocketmq:
+#        binder:
+#          name-server: 127.0.0.1:9876
+#      bindings:
+#        output:
+#          # 用来指定topic
+#          destination: stream-test-topic
+#        my-output:
+#          destination: stream-my-topic
+
     stream:
       rocketmq:
         binder:
           name-server: 127.0.0.1:9876
+        bindings:
+          output:
+            producer:
+              transactional: true
+              group: tx-add-bonus-group
       bindings:
         output:
           # 用来指定topic
-          destination: stream-test-topic
-        my-output:
-          destination: stream-my-topic
+          destination: add-bonus
 
   application:
     name: content-center
@@ -85,7 +99,7 @@ resttemplate:
     enabled: false
 
 
-rocketmq:
-  name-server: 127.0.0.1:9876
-  producer:
-    group: test-group
+#rocketmq:
+#  name-server: 127.0.0.1:9876
+#  producer:
+#    group: test-group

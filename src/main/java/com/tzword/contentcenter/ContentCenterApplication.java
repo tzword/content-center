@@ -17,7 +17,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @SpringBootApplication
 //@EnableFeignClients(defaultConfiguration = GlobleFeignConfiguration.class)
 @EnableFeignClients
-@EnableBinding({Source.class, MySource.class})
+@EnableBinding(Source.class)
 public class ContentCenterApplication {
 
     public static void main(String[] args) {
