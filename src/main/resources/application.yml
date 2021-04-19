@@ -103,3 +103,8 @@ resttemplate:
 #  name-server: 127.0.0.1:9876
 #  producer:
 #    group: test-group
+
+jwt:
+  secret: aaabbbcccdddeeefffggghhhiiijjjkkklllmmmnnnooopppqqqrrrsssttt
+  # 有效期，单位秒，默认2周
+  expire-time-in-second: 1209600
