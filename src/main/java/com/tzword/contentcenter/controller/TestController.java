@@ -19,11 +19,15 @@ import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.core.io.Resource;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
@@ -190,6 +194,38 @@ public class TestController {
     @GetMapping(value = "sentinel-restTemplete/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public User getUserBySentinelRestTemplete(@PathVariable Integer id){
         return this.restTemplate.getForObject("http://user-center/hi/getUser/{id}",User.class,id);
+    }
+
+
+    /**
+     * @Description:  使用restTemplete的exchange()方法
+     * @param id 1
+     * @return java.util.List<com.tzword.contentcenter.domain.entity.content.User>
+     * @throws
+     * @author jianghy
+     * @date 2021/4/8 14:54
+     */
+    @GetMapping(value = "sentinel-restTemplete-exchange/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> getUserBySentinelRestTempleteExchange(@PathVariable Integer id){
+        //先获取request
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        ServletRequestAttributes attributes = (ServletRequestAttributes) requestAttributes;
+        HttpServletRequest request = attributes.getRequest();
+
+        //再获取token
+        String token = request.getHeader("x-Token");
+        //把token放入heads
+        HttpHeaders heads = new HttpHeaders();
+        heads.add("x-Token",token);
+
+        //进行resttemplate进行请求
+        return this.restTemplate.exchange(
+                "http://user-center/hi/getUser/{id}",
+                HttpMethod.GET,
+                new HttpEntity<>(heads),
+                User.class,
+                id
+        );
     }
 
 
