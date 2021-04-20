@@ -75,6 +75,8 @@ feign:
     config:
       default: #default为全局配置，如果写服务名为单个服务名的配置
         loggerLevel: full
+        requestInterceptors:
+          - com.tzword.contentcenter.interceptor.TokenRelayFeignRequestInterceptor
 
   # 使feign使用httpclient，可以配置连接池提高性能，替换默认的URLConnetion的客户端，当然这里也可以使用okhttp
   httpclient:
