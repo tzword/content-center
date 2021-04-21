@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
@@ -42,6 +43,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("hi2")
 @Slf4j
+@RefreshScope
 public class TestController {
     @Autowired
     private ShareMapper shareMapper;
