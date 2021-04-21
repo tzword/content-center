@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
  * @date 2021/3/29 16:08
  */
 @RestController
-@RequestMapping("hi")
+@RequestMapping("hi2")
 @Slf4j
 public class TestController {
     @Autowired
