@@ -16,6 +16,7 @@ import com.tzword.contentcenter.sentinel.SentinelFallbackClass;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.stream.messaging.Source;
@@ -266,5 +267,21 @@ public class TestController {
 //        );
 //        return "success";
 //    }
+
+    @Value("${your.configuration}")
+    private String yourConfiguration;
+
+    /**
+     * @Description: 获取配置信息
+     * @param  1
+     * @return java.lang.String
+     * @throws
+     * @author jianghy
+     * @date 2021/4/21 17:05
+     */
+    @GetMapping("/getConfiguration")
+    public String testConfiguration(){
+        return this.yourConfiguration;
+    }
 
 }
