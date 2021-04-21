@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionErrorHandler {
-    @ExceptionHandler(MySecurityException.class)
-    public ResponseEntity<ErrorBody> error(MySecurityException e){
+    @ExceptionHandler(SecurityException.class)
+    public ResponseEntity<ErrorBody> error(SecurityException e){
         log.warn("发生了异常",e);
         return new ResponseEntity<>(
-                ErrorBody.builder().body("token非法，不允许访问").status(HttpStatus.UNAUTHORIZED.value()).build(),HttpStatus.UNAUTHORIZED
+                ErrorBody.builder().body(e.getMessage()).status(HttpStatus.UNAUTHORIZED.value()).build(),HttpStatus.UNAUTHORIZED
         );
     }
 }

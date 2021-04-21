@@ -6,6 +6,7 @@ import com.alibaba.csp.sentinel.Tracer;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.context.ContextUtil;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
+import com.tzword.contentcenter.annotation.CheckAuthorization;
 import com.tzword.contentcenter.dao.content.ShareMapper;
 import com.tzword.contentcenter.domain.entity.content.Share;
 import com.tzword.contentcenter.domain.entity.content.User;
@@ -55,6 +56,12 @@ public class TestController {
     public void printHello(){
         List<Share> users = shareMapper.selectAll();
         System.out.println(users.toString());
+    }
+
+    @RequestMapping("helloword3")
+    @CheckAuthorization(value = "admin")
+    public List<Share> printHello2(){
+        return shareMapper.selectAll();
     }
 
     @GetMapping("diaoyong")
