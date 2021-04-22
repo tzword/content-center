@@ -66,6 +66,9 @@ spring:
 # STORAGE_TYPE 指定使用什么作为存储类型
 # ES_HOSTS 指定elasticsearch的地址
 
+# 持久化之后会出现一个问题：就是依赖关系会不见，这个时候需要 启动zipkin-dependencies.jar
+# 在cmd中执行 java -DSTORAGE_TYPE=elasticsearch  -DES_HOSTS=1ocalhost:9200  -jar zipkin-dependencies-2.0.4.jar
+
 server:
   port: 8010
 
