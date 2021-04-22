@@ -56,6 +56,12 @@ spring:
     name: content-center
   main:
     allow-bean-definition-overriding: true
+  zipkin:
+    base-url: http://127.0.0.1:9411/
+  sleuth:
+    sampler:
+      #抽样率：默认是0.1，表示90%的数据都会丢弃，这里我们测试方便用了1.0
+      probability: 1.0
 
 server:
   port: 8010
