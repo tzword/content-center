@@ -62,6 +62,9 @@ spring:
     sampler:
       #抽样率：默认是0.1，表示90%的数据都会丢弃，这里我们测试方便用了1.0
       probability: 1.0
+# zipkin的持久化设置：在cmd中 执行：java -DSTORAGE_TYPE=elasticsearch -DES_HOSTS=localhost:9200 -jar zipkin-server-2.10.1-exec.jar
+# STORAGE_TYPE 指定使用什么作为存储类型
+# ES_HOSTS 指定elasticsearch的地址
 
 server:
   port: 8010
