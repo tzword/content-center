@@ -6,6 +6,8 @@ import com.alibaba.csp.sentinel.Tracer;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.context.ContextUtil;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.tzword.contentcenter.annotation.CheckAuthorization;
 import com.tzword.contentcenter.dao.content.ShareMapper;
 import com.tzword.contentcenter.domain.entity.content.Share;
@@ -54,6 +56,29 @@ public class TestController {
     @Autowired
     private DiscoveryClient discoveryClient;
 
+
+    /**
+     * @Description: 测试分页
+     * @param pageSize 1
+     * @param pageNo 2
+     * @return java.util.List<com.tzword.contentcenter.domain.entity.content.Share> 
+     * @throws
+     * @author jianghy
+     * @date 2021/4/23 11:14 
+     */
+    @RequestMapping("testPageHelper")
+    public PageInfo<Share> testPageHelper(
+            @RequestParam(required = false,defaultValue = "10") Integer pageSize,
+            @RequestParam(required = false,defaultValue = "1") Integer pageNo){
+        if (pageSize > 100){
+            pageSize = 100;
+        }
+        //
+        PageHelper.startPage(pageNo,pageSize);
+        List<Share> users = shareMapper.selectAll();
+        System.out.println(users.toString());
+        return new PageInfo<>(users);
+    }
 
     @RequestMapping("helloword2")
     public void printHello(){
