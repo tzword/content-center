@@ -9,4 +9,4 @@ spring:
     name: content-center
 
   profiles:
-    active: prod
+    active: dev

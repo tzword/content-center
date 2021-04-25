@@ -3,21 +3,21 @@ spring:
     url: jdbc:mysql://localhost:3306/content_center?useSSL=false&serverTimezone=UTC
     hikari:
       username: root
-      password: 1323!Q@#EMSD%$^
+      password: 123456
       driver-class-name: com.mysql.cj.jdbc.Driver
 
   cloud:
     nacos:
       discovery:
         server-addr: localhost:8848
-        # 指定namespace
-        namespace: 68dc03c0-048d-48c4-81e3-b7d1b34556e5
-        # 指定集群名称
-        cluster-name: BJ
-        # 元数据
-        metadata:
-          version: v1
-          target-version: v1
+#        # 指定namespace
+#        namespace: 68dc03c0-048d-48c4-81e3-b7d1b34556e5
+#        # 指定集群名称
+#        cluster-name: BJ
+#        # 元数据
+#        metadata:
+#          version: v1
+#          target-version: v1
 
     sentinel:
       transport:
@@ -28,7 +28,7 @@ spring:
 #        enabled: false
         enabled: true
 #    stream:
-#      rocketmq:
+#      rocketmq:z
 #        binder:
 #          name-server: 127.0.0.1:9876
 #      bindings:
@@ -105,7 +105,10 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*'
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
 
 resttemplate:
   # SentinelRestTemplate开关
